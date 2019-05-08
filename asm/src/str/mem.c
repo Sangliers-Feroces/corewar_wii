@@ -15,3 +15,13 @@ void memcpy_slow(void *dst, const void *src, size_t size)
     for (size_t i = 0; i < size; i++)
         dst_a[i] = src_a[i];
 }
+
+int streq(const char *a, const char *b)
+{
+    for (size_t i = 0; 1; i++) {
+        if (a[i] != b[i])
+            return 0;
+        if (a[i] == '\0')
+            return 1;
+    }
+}

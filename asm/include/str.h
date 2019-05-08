@@ -18,3 +18,4 @@ void strout_num(size_t value);
 void strerr_num(size_t value);
 
 void memcpy_slow(void *dst, const void *src, size_t size);
+int streq(const char *a, const char *b);

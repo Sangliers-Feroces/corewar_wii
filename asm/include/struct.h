@@ -8,3 +8,4 @@
 #pragma once
 
 #include "file_struct.h"
+#include "asm_struct.h"
