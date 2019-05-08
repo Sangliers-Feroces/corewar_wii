@@ -17,9 +17,6 @@ file_read_t file_read_create(const char *path)
     res.data = NULL;
     if (f == NULL)
         return res;
-    fseek(f, 0, SEEK_END);
-    res.size = ftell(f);
-    rewind(f);
     res.data = (void*)malloc_safe(res.size);
     fread(res.data, 1, res.size, f);
     fclose(f);
