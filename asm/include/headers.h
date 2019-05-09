@@ -20,3 +20,4 @@
 #include "misc.h"
 #include "op.h"
 #include "macro.h"
+#include "global.h"

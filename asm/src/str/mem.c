@@ -25,3 +25,13 @@ int streq(const char *a, const char *b)
             return 1;
     }
 }
+
+char* strdup_slow(const char *to_dup)
+{
+    size_t len = strlen_slow(to_dup);
+    char *res = (char*)malloc_safe(len + 1);
+
+    memcpy_slow(res, to_dup, len);
+    res[len] = '\0';
+    return res;
+}

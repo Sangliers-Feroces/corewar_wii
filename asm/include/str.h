@@ -7,7 +7,7 @@
 
 #pragma once
 
-size_t my_strlen(const char *str);
+size_t strlen_slow(const char *str);
 void my_putchar_fd(int fd, char to_print);
 void my_putchar(char to_print);
 void my_putstr_fd(int fd, const char *str);
@@ -19,3 +19,4 @@ void strerr_num(size_t value);
 
 void memcpy_slow(void *dst, const void *src, size_t size);
 int streq(const char *a, const char *b);
+char* strdup_slow(const char *to_dup);

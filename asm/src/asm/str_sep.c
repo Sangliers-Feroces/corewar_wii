@@ -9,7 +9,8 @@
 
 static int is_char_sep(char to_test)
 {
-    char sep[] = {' ', ',', '\t', '\n', 0};
+    char sep[] = {COMMENT_CHAR, LABEL_CHAR, DIRECT_CHAR,
+    SEPARATOR_CHAR, ' ', '\t', '\n', 0};
 
     for (size_t i = 0; sep[i] != 0; i++)
         if (to_test == sep[i])
@@ -22,11 +23,9 @@ static void add_sep_force(vec_str_t *acc, const char *str, size_t start, size_t 
     vec_str_add(acc, str_init(i - start, str + start));
 }
 
-
 static void add_sep(vec_str_t *acc, const char *str, size_t start, size_t i)
 {
     char elim[] = {' ', '\t', '\n', 0};
-    size_t nelim_count = 0;
     size_t len = i - start;
     int is_elim;
 
@@ -36,37 +35,50 @@ static void add_sep(vec_str_t *acc, const char *str, size_t start, size_t i)
         is_elim = 0;
         for (size_t j = 0; j < len; j++)
             is_elim |= str[start + j] == elim[i];
-        nelim_count += !is_elim;
+        if (is_elim)
+            return;
     }
-    if (nelim_count == 0)
-        return;
     add_sep_force(acc, str, start, i);
 }
 
-vec_str_t str_sep(asm_t *a, const char *src)
+str_sep_data_t str_sep_data_init(void)
+{
+    str_sep_data_t res;
+
+    res.start = 0;
+    res.is_quote = 0;
+    res.is_last_sep = 0;
+    return res;
+}
+
+static void iter(vec_str_t *res, str_sep_data_t *data, const char *src)
+{
+    if (src[data->i] == '"') {
+        data->is_quote = !data->is_quote;
+        if (!data->is_quote)
+            add_sep_force(res, src, data->start, data->i);
+        data->start = data->i + 1;
+        return;
+    }
+    if (data->is_quote)
+        return;
+    data->is_sep = is_char_sep(src[data->i]);
+    if (data->is_sep || data->is_last_sep) {
+        add_sep(res, src, data->start, data->i);
+        data->start = data->i;
+    }
+    data->is_last_sep = data->is_sep;
+}
+
+vec_str_t str_sep(const char *src)
 {
     vec_str_t res = vec_str_init();
-    size_t start = 0;
-    size_t i;
-    size_t is_quote = 0;
+    str_sep_data_t data = str_sep_data_init();
 
-    for (i = 0; src[i] != '\0'; i++) {
-        if (src[i] == '"') {
-            is_quote = !is_quote;
-            if (!is_quote)
-                add_sep_force(&res, src, start, i);
-            start = i + 1;
-            continue;
-        }
-        if (is_quote)
-            continue;
-        if (is_char_sep(src[i])) {
-            add_sep(&res, src, start, i);
-            start = i;
-        }
-    }
-    if (is_quote)
-        error_line_exit(a->line, "Uncomplete string", NULL);
-    add_sep(&res, src, start, i);
+    for (data.i = 0; src[data.i] != '\0'; data.i++)
+        iter(&res, &data, src);
+    if (data.is_quote)
+        error_line_exit(_line, "Uncomplete string", NULL);
+    add_sep(&res, src, data.start, data.i);
     return res;
 }

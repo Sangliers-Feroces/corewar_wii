@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-size_t my_strlen(const char *str)
+size_t strlen_slow(const char *str)
 {
     size_t i;
 
@@ -28,7 +28,7 @@ void my_putchar(char to_print)
 
 void my_putstr_fd(int fd, const char *str)
 {
-    write(fd, str, my_strlen(str));
+    write(fd, str, strlen_slow(str));
 }
 
 void my_putstr(const char *str)

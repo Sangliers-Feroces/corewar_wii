@@ -14,7 +14,7 @@ void file_write_int(file_write_t *file, int value)
 
 void file_write_string(file_write_t *file, const char *value)
 {
-    size_t size = my_strlen(value) + 1;
+    size_t size = strlen_slow(value) + 1;
 
     file_write_actual(file, &size, sizeof(size_t));
     file_write_actual(file, value, size);

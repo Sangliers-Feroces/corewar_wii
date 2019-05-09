@@ -13,7 +13,15 @@ static asm_t asm_init(void)
 
     res.out = file_write_create();
     res.line = 1;
+    res.labels = vec_asm_label_init();
+    res.refs = vec_asm_label_ref_init();
     return res;
+}
+
+static void asm_quit(asm_t *a)
+{
+    vec_asm_label_destroy(a->labels);
+    vec_asm_label_ref_destroy(a->refs);
 }
 
 file_write_t asm_file(FILE *in)
@@ -25,7 +33,9 @@ file_write_t asm_file(FILE *in)
     while (getline(&line, &n, in) >= 0) {
         asm_parse_line(&a, line);
         a.line++;
+        _line++;
     }
     free(line);
+    asm_quit(&a);
     return a.out;
 }
