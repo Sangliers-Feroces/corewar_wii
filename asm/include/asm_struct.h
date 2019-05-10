@@ -12,10 +12,10 @@
 #define ASM_HEADER_COM_LEN 2048
 
 typedef struct {
-   int32_t id;
-   char name[ASM_HEADER_NAME_LEN + 1];
-   int32_t size;
-   char com[ASM_HEADER_COM_LEN + 1];
+    int32_t id;
+    char name[ASM_HEADER_NAME_LEN + 1];
+    int32_t size;
+    char com[ASM_HEADER_COM_LEN + 1];
 } asm_header_t;
 
 typedef struct {

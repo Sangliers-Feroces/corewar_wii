@@ -7,6 +7,23 @@
 
 #include "headers.h"
 
+asm_label_ref_t asm_label_ref_create(const char *label, size_t off,
+size_t instr_base, int is_short)
+{
+    asm_label_ref_t res;
+
+    res.label = strdup_slow(label);
+    res.off = off;
+    res.instr_base = instr_base;
+    res.is_short = is_short;
+    return res;
+}
+
+void asm_label_ref_destroy(asm_label_ref_t ref)
+{
+    free(ref.label);
+}
+
 static size_t get_off(asm_t *a, asm_label_ref_t ref)
 {
     for (size_t i = 0; i < a->labels.count; i++)

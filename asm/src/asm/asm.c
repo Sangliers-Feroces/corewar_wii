@@ -38,10 +38,6 @@ file_write_t asm_file(FILE *in)
         a.line++;
         _line++;
     }
-    printf("\n");
-    for (size_t i = 0; i < a.labels.count; i++)
-        printf("label at %zu: '%s'\n", a.labels.label[i].off, a.labels.label[i].name);
-    printf("\n");
     asm_label_refs_resolve(&a);
     a.header.size = swap32(a.out.size - sizeof(asm_header_t));
     memcpy_slow(a.out.data, &a.header, sizeof(asm_header_t));

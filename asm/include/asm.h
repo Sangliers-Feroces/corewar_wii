@@ -11,6 +11,10 @@ file_write_t asm_file(FILE *in);
 
 void asm_parse_line(asm_t *a, const char *line);
 
+void asm_parse_add_op(asm_op_decl_t *res, vec_str_t t, size_t *i);
+
+void asm_parse_remove_comment(vec_str_t *vec);
+
 vec_str_t vec_str_init(void);
 void vec_str_destroy(vec_str_t vec);
 void vec_str_add(vec_str_t *vec, str_t to_add);

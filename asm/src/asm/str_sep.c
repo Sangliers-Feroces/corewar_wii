@@ -18,7 +18,8 @@ static int is_char_sep(char to_test)
     return 0;
 }
 
-static void add_sep_force(vec_str_t *acc, const char *str, size_t start, size_t i)
+static void add_sep_force(vec_str_t *acc, const char *str, size_t start,
+size_t i)
 {
     vec_str_add(acc, str_init(i - start, str + start));
 }
@@ -39,16 +40,6 @@ static void add_sep(vec_str_t *acc, const char *str, size_t start, size_t i)
             return;
     }
     add_sep_force(acc, str, start, i);
-}
-
-str_sep_data_t str_sep_data_init(void)
-{
-    str_sep_data_t res;
-
-    res.start = 0;
-    res.is_quote = 0;
-    res.is_last_sep = 0;
-    return res;
 }
 
 static void iter(vec_str_t *res, str_sep_data_t *data, const char *src)

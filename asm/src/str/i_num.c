@@ -35,7 +35,7 @@ static size_t get_size(const char *src, size_t *i)
     size_t res;
     char err[16] = "got '\0'";
 
-    for (res = 0; is_digit(src[*i + res]); res++); 
+    for (res = 0; is_digit(src[*i + res]); res++);
     if (res == 0)
         error_line_exit(_line, "No digits found", NULL);
 

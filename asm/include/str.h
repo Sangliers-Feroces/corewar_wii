@@ -23,3 +23,5 @@ void memcpy_slow(void *dst, const void *src, size_t size);
 void memset_slow(void *dst, uint8_t value, size_t count);
 int streq(const char *a, const char *b);
 char* strdup_slow(const char *to_dup);
+
+str_sep_data_t str_sep_data_init(void);
