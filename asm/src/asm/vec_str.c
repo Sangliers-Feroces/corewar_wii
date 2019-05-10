@@ -35,6 +35,16 @@ void vec_str_add(vec_str_t *vec, str_t to_add)
     vec->str[cur] = str_to_c_str(to_add);
 }
 
+int vec_str_at(vec_str_t vec, size_t ndx, char **res)
+{
+    if (ndx < vec.count) {
+        if (res != NULL)
+            *res = vec.str[ndx];
+        return 1;
+    } else
+        return 0;
+}
+
 str_t str_init(size_t size, const char *data)
 {
     str_t res;

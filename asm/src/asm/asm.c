@@ -35,6 +35,10 @@ file_write_t asm_file(FILE *in)
         a.line++;
         _line++;
     }
+    printf("\n");
+    for (size_t i = 0; i < a.labels.count; i++)
+        printf("label at %zu: '%s'\n", a.labels.label[i].off, a.labels.label[i].name);
+    printf("\n");
     free(line);
     asm_quit(&a);
     return a.out;

@@ -7,6 +7,8 @@
 
 #pragma once
 
+size_t size_t_from_str(const char *src);
+
 size_t strlen_slow(const char *str);
 void my_putchar_fd(int fd, char to_print);
 void my_putchar(char to_print);

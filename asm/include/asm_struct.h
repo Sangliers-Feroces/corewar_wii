@@ -19,8 +19,9 @@ typedef struct {
 } vec_asm_label_t;
 
 typedef struct {
-    size_t label;
+    char *label;
     size_t off;
+    int is_short;
 } asm_label_ref_t;
 
 typedef struct {
@@ -54,3 +55,22 @@ typedef struct {
     int is_sep;
     int is_last_sep;
 } str_sep_data_t;
+
+typedef enum {
+    ASM_OP_ARG_REGISTER,
+    ASM_OP_ARG_IMMEDIATE,
+    ASM_OP_ARG_IMMEDIATE_LABEL,
+    ASM_OP_ARG_POINTER,
+} asm_op_arg_type_t;
+
+typedef struct {
+    asm_op_arg_type_t type;
+    size_t value;
+    const char *label;
+} asm_op_arg_decl_t;
+
+typedef struct {
+    const char *name;
+    size_t arg_count;
+    asm_op_arg_decl_t arg[64];
+} asm_op_decl_t;
