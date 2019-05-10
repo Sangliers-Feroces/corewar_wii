@@ -25,9 +25,3 @@ void* malloc_safe(size_t size)
         exit_full_custom();
     return (res);
 }
-
-uint32_t swap32(uint32_t base)
-{
-    return ((base >> 24) & 0xFF) | ((base >> 16) & 0xFF00) |
-    ((base >> 8) & 0xFF0000) | ((base >> 0) & 0xFF000000);
-}

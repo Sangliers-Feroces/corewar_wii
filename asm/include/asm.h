@@ -28,6 +28,20 @@ asm_label_t asm_label_create(const char *to_dup, size_t off);
 vec_asm_label_ref_t vec_asm_label_ref_init(void);
 void vec_asm_label_ref_destroy(vec_asm_label_ref_t vec);
 void vec_asm_label_ref_add(vec_asm_label_ref_t *vec, asm_label_ref_t to_add);
+asm_label_ref_t asm_label_ref_create(const char *label, size_t off,
+size_t instr_base, int is_short);
+void asm_label_ref_destroy(asm_label_ref_t ref);
 
-asm_op_arg_decl_t asm_op_arg_decl_init(asm_op_arg_type_t type, size_t value);
-asm_op_arg_decl_t asm_op_arg_decl_init_label(const char *label);
+asm_decl_arg_t asm_op_arg_decl_init(asm_decl_arg_type_t type, size_t value);
+asm_decl_arg_t asm_op_arg_decl_init_label(const char *label);
+
+void asm_decl_inline(asm_t *a, asm_op_decl_t decl);
+
+asm_decl_arg_type_t asm_decl_type_get_short(asm_decl_arg_type_t decl_type);
+void asm_check_decl(asm_op_decl_t decl, asm_op_t op);
+
+asm_op_t asm_decl_get_op(asm_op_decl_t decl);
+
+int asm_get_header(asm_t *a, vec_str_t t, size_t *i, char *got);
+
+void asm_label_refs_resolve(asm_t *a);

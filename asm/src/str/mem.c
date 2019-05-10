@@ -16,6 +16,14 @@ void memcpy_slow(void *dst, const void *src, size_t size)
         dst_a[i] = src_a[i];
 }
 
+void memset_slow(void *dst, uint8_t value, size_t count)
+{
+    char *dst_a = dst;
+
+    for (size_t i = 0; i < count; i++)
+        dst_a[i] = value;
+}
+
 int streq(const char *a, const char *b)
 {
     for (size_t i = 0; 1; i++) {

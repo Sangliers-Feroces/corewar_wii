@@ -9,8 +9,8 @@
 
 static int is_char_sep(char to_test)
 {
-    char sep[] = {COMMENT_CHAR, LABEL_CHAR, DIRECT_CHAR,
-    SEPARATOR_CHAR, ' ', '\t', '\n', 0};
+    char sep[] = {'#', ':', '%', ',',
+    ' ', '\t', '\n', 0};
 
     for (size_t i = 0; sep[i] != 0; i++)
         if (to_test == sep[i])

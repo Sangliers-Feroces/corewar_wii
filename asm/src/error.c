@@ -39,7 +39,7 @@ void err_gen_line(const char *msg, size_t line, const char *err,
 const char *bonus)
 {
     my_putstr_fd(2, msg);
-    my_putstr_fd(2, "Line ");
+    my_putstr_fd(2, ": Line ");
     strerr_num(line);
     my_putstr_fd(2, ": ");
     if (err == NULL)

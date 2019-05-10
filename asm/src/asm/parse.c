@@ -25,7 +25,7 @@ static void try_get_label(asm_t *a, vec_str_t t, size_t *i)
 {
     if (!vec_str_at(t, *i + 1, NULL))
         return;
-    if (!streq(t.str[(*i) + 1], ":"))
+    if (!streq(t.str[*i + 1], ":"))
         return;
     vec_asm_label_add(&a->labels, asm_label_create(t.str[*i], a->out.size));
     (*i) += 2;
@@ -46,19 +46,19 @@ static void add_op_imm(asm_op_decl_t *res, vec_str_t t, size_t *i)
         asm_op_arg_decl_init_label(got);
     } else
         res->arg[res->arg_count++] =
-        asm_op_arg_decl_init(ASM_OP_ARG_IMMEDIATE, size_t_from_str(got));
+        asm_op_arg_decl_init(ASM_DECL_ARG_IMMEDIATE, size_t_from_str(got));
 }
 
 static void add_op_reg(asm_op_decl_t *res, const char *token)
 {
     res->arg[res->arg_count++] =
-    asm_op_arg_decl_init(ASM_OP_ARG_REGISTER, size_t_from_str(&token[1]));
+    asm_op_arg_decl_init(ASM_DECL_ARG_REGISTER, size_t_from_str(&token[1]));
 }
 
 static void add_op_ptr(asm_op_decl_t *res, const char *token)
 {
     res->arg[res->arg_count++] =
-    asm_op_arg_decl_init(ASM_OP_ARG_POINTER, size_t_from_str(token));
+    asm_op_arg_decl_init(ASM_DECL_ARG_POINTER, size_t_from_str(token));
 }
 
 static void add_op(asm_op_decl_t *res, vec_str_t t, size_t *i)
@@ -77,11 +77,13 @@ static void add_op(asm_op_decl_t *res, vec_str_t t, size_t *i)
 
 static void try_get_op(asm_t *a, vec_str_t t, size_t *i)
 {
-    asm_op_decl_t op;
+    asm_op_decl_t op = {NULL, 0, {{}}};
     int is_first = 1;
     char *got;
 
     if (!vec_str_at(t, (*i)++, (char**)&op.name))
+        return;
+    if (asm_get_header(a, t, i, (char*)op.name))
         return;
     while (vec_str_at(t, *i, &got)) {
         if (is_first) {
@@ -101,6 +103,7 @@ static void try_get_op(asm_t *a, vec_str_t t, size_t *i)
     for (size_t i = 0; i < op.arg_count; i++)
         printf("arg#%zu: type: %d, value: %zd, label: '%s'\n", i, op.arg[i].type, op.arg[i].value, op.arg[i].label);
     printf("\n");
+    asm_decl_inline(a, op);
 }
 
 void asm_parse_line(asm_t *a, const char *line)

@@ -19,3 +19,18 @@ void file_write_string(file_write_t *file, const char *value)
     file_write_actual(file, &size, sizeof(size_t));
     file_write_actual(file, value, size);
 }
+
+void file_write_8(file_write_t *file, uint8_t value)
+{
+    file_write(file, &value, sizeof(uint8_t));
+}
+
+void file_write_16(file_write_t *file, uint16_t value)
+{
+    file_write(file, &value, sizeof(uint16_t));
+}
+
+void file_write_32(file_write_t *file, uint32_t value)
+{
+    file_write(file, &value, sizeof(uint32_t));
+}

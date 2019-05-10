@@ -15,6 +15,9 @@ static asm_t asm_init(void)
     res.line = 1;
     res.labels = vec_asm_label_init();
     res.refs = vec_asm_label_ref_init();
+    memset_slow(&res.header, 0, sizeof(asm_header_t));
+    res.header.id = swap32(ASM_HEADER_MAGIC);
+    file_write(&res.out, &res.header, sizeof(asm_header_t));
     return res;
 }
 
@@ -39,6 +42,9 @@ file_write_t asm_file(FILE *in)
     for (size_t i = 0; i < a.labels.count; i++)
         printf("label at %zu: '%s'\n", a.labels.label[i].off, a.labels.label[i].name);
     printf("\n");
+    asm_label_refs_resolve(&a);
+    a.header.size = swap32(a.out.size - sizeof(asm_header_t));
+    memcpy_slow(a.out.data, &a.header, sizeof(asm_header_t));
     free(line);
     asm_quit(&a);
     return a.out;

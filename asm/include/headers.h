@@ -18,6 +18,5 @@
 #include "error.h"
 #include "asm.h"
 #include "misc.h"
-#include "op.h"
 #include "macro.h"
 #include "global.h"
