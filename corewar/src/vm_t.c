@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** CPE_corewar_2018
+** ಠωಠ
 ** File description:
-** 09/05/2019, vm_t.c
+** headaaaas
 */
 
 #include "header.h"
@@ -17,7 +17,7 @@ vm_t vm_init(void)
 
 void vm_create(vm_t *vm)
 {
-    for (int i = 0; i < (MEM_SIZE / sizeof(char)); i++)
+    for (int32_t i = 0; i < (int32_t)(MEM_SIZE / sizeof(char)); i++)
         vm->mem[i] = '0';
 }
 

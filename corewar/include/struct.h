@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2018
-** CPE_corewar_2018
+** ಠωಠ
 ** File description:
-** 09/05/2019, struct.h
+** headaaaas
 */
 
 #pragma once

@@ -1,14 +1,18 @@
 /*
 ** EPITECH PROJECT, 2018
-** CPE_corewar_2018
+** ಠωಠ
 ** File description:
-** 09/05/2019, header.h
+** headaaaas
 */
 
 #pragma once
 
 #include <stdlib.h>
 #include <sys/types.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <stdint.h>
 
 #include "struct.h"
 #include "op.h"
