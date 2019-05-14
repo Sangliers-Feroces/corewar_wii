@@ -16,14 +16,14 @@ size_t my_strlen(const char *str)
     return (i);
 }
 
-void my_putchar_fd(int fd, char to_print)
+int strcmp_c(char *str1, char *str2)
 {
-    write(fd, &to_print, 1);
-}
-
-void my_putchar(char to_print)
-{
-    my_putchar_fd(1, to_print);
+    for (int i = 0; ;i++) {
+        if (str1[i] == 0 && str2[i] == 0)
+            return 1;
+        if (str1[i] != str2[i])
+            return 0;
+    }
 }
 
 void my_putstr_fd(int fd, const char *str)

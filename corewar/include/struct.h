@@ -10,6 +10,8 @@
 typedef struct {
     size_t address;
     char *inst;
+    int32_t number;
+    int32_t size;
 } prog_t;
 
 typedef struct {

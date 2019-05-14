@@ -7,7 +7,7 @@
 
 #include "header.h"
 
-void get_asm(char *path)
+void get_asm(char *path, prog_t *prog)
 {
     FILE *file = fopen(path, "r");
     int32_t size;
@@ -24,4 +24,6 @@ void get_asm(char *path)
     fseek(file, sizeof(asm_header_t), SEEK_SET);
     fread(asm_c, 1, size, file);
     fclose(file);
+    prog->inst = asm_c;
+    prog->size = size;
 }
