@@ -26,7 +26,7 @@ file_read_t file_read_create(const char *path)
 void file_read_actual(file_read_t *file, void *dst, size_t size)
 {
     if (file->i + size > file->size) {
-        printf("Corrupted save: file overflow.\n");
+        my_putstr("Corrupted save: file overflow.\n");
         exit(84);
     }
     memcpy_slow(dst, file->data + file->i, size);
@@ -39,7 +39,7 @@ void file_read(file_read_t *file, void *dst, size_t size)
 
     file_read_actual(file, &got, sizeof(ssize_t));
     if (got != size) {
-        printf("Corrupted save: chain destroyed here.\n");
+        my_putstr("Corrupted save: chain destroyed here.\n");
         exit(84);
     }
     file_read_actual(file, dst, size);
@@ -48,7 +48,7 @@ void file_read(file_read_t *file, void *dst, size_t size)
 void file_read_flush(file_read_t *file)
 {
     if (file->i != file->size) {
-        printf("Corrupted save: file partly discarded.\n");
+        my_putstr("Corrupted save: file partly discarded.\n");
         exit(84);
     }
     free(file->data);
