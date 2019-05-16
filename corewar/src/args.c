@@ -5,9 +5,9 @@
 ** headaaaas
 */
 
-#include "header.h"
+#include "headers.h"
 
-void print_help(void)
+static void print_help(void)
 {
     my_putstr("USAGE\n"
     "\t./corewar [-dump nbr_cycle] [[-n prog_number] [-a load_address]"
@@ -29,25 +29,40 @@ void print_help(void)
     exit(0);
 }
 
-void args(int ac, char **av, vec_prog_t *v)
+static vec_str_t extract_args(int ac, char **av)
 {
-    prog_t prog = prog_init();
-    int last_number = 0;
+    vec_str_t res = vec_str_init();
 
-    if (strcmp_c(av[1], "-h"))
+    for (int i = 0; i < ac; i++)
+        vec_str_add(&res, str_init(strlen_slow(av[i]), av[i]));
+    return res;
+}
+
+static void parse_first_arg(vm_t *vm, vec_str_t args, size_t *i)
+{
+    char *got;
+
+    if (!vec_str_at(args, (*i)++, &got))
+        error_mul_exit("FATAL ERROR", "wtf");
+    if (streq(got, "-h"))
         print_help();
-    for (int i = 1; i < ac; i++) {
-        if (strcmp_c(av[i], "-a")) {
-            prog.address = getnbr_c(av[i + 1]);
-            i++;
-        } else if (strcmp_c(av[i], "-n")) {
-            prog.number = getnbr_c(av[i + 1]);
-            i++;
-            last_number = prog.number;
-        } else {
-            prog.number = last_number++;
-            get_asm(av[i], &prog);
-            prog_vector_add(v, prog);
-        }
+    else if (streq(got, "-dump")) {
+        if (!vec_str_at(args, (*i)++, &got))
+            error_mul_exit("-dump", "missing arg");
+        vm->timeout = size_t_from_str(got);
     }
+}
+
+vm_t args_parse(int ac, char **av)
+{
+    vm_t res = vm_init();
+    vec_str_t args = extract_args(ac, av);
+    size_t i = 1;
+    char *got;
+
+    if (vec_str_at(args, i, &got))
+        parse_first_arg(&res, args, &i);
+    res.progs = vec_prog_from_args(args, &i);
+    vec_str_destroy(args);
+    return res;
 }

@@ -5,21 +5,16 @@
 ** headaaaas
 */
 
-#include "header.h"
+#include "headers.h"
 
 int main(int ac, char **av)
 {
-    vm_t vm = vm_init();
-    vec_prog_t v;
+    vm_t vm = args_parse(ac, av);
 
-    if (ac == 1) {
-        my_putstr_fd(2, "Not enough arguments\n");
-        return 84;
-    }
-    prog_vector_init(&v);
-    args(ac, av, &v);
-    vm.vec = &v;
-    prog_vector_destroy(&v);
+    if (vm.progs.count == 0)
+        error_mul_exit("vm", "at least one program must be set on the core");
+    vm_set_progs(&vm);
+    write(1, vm.mem, VM_SIZE);
     vm_destroy(&vm);
     return 0;
 }

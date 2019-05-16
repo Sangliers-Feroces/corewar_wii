@@ -7,20 +7,5 @@
 
 #pragma once
 
-typedef struct {
-    size_t address;
-    char *inst;
-    int32_t number;
-    int32_t size;
-} prog_t;
-
-typedef struct {
-    int32_t capacity;
-    int32_t count;
-    prog_t *prog;
-} vec_prog_t;
-
-typedef struct {
-    char *mem;
-    vec_prog_t *vec;
-} vm_t;
+#include "corewar_struct.h"
+#include "asm_struct.h"

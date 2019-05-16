@@ -13,8 +13,11 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <unistd.h>
 
 #include "struct.h"
-#include "op.h"
 
-#include "proto.h"
+#include "corewar.h"
+#include "str.h"
+#include "misc.h"
+#include "error.h"
