@@ -52,7 +52,6 @@ const char *bonus)
         my_putstr_fd(2, ")");
     }
     my_putstr_fd(2, "\n");
-    exit(84);
 }
 
 void error_line_exit(size_t line, const char *err,
