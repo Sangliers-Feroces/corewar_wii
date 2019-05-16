@@ -22,4 +22,5 @@ typedef struct {
 
 typedef struct {
     char *mem;
+    vec_prog_t *vec;
 } vm_t;

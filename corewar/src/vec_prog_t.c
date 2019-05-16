@@ -18,7 +18,7 @@ void prog_vector_add(vec_prog_t *v, prog_t prog)
 {
     if (v->capacity == v->count) {
         v->capacity++;
-        v->prog = (prog_t*)realloc(v->prog, v->capacity * sizeof(prog_t));
+        v->prog = (prog_t *)realloc(v->prog, v->capacity * sizeof(prog_t));
     }
     v->prog[v->count] = prog;
     v->count++;
@@ -26,6 +26,7 @@ void prog_vector_add(vec_prog_t *v, prog_t prog)
 
 void prog_vector_destroy(vec_prog_t *v)
 {
+    for (int i = 0; i < v->count; i++)
+        free(v->prog[i].inst);
     free(v->prog);
-    free(v);
 }

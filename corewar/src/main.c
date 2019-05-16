@@ -18,6 +18,8 @@ int main(int ac, char **av)
     }
     prog_vector_init(&v);
     args(ac, av, &v);
+    vm.vec = &v;
+    prog_vector_destroy(&v);
     vm_destroy(&vm);
     return 0;
 }
