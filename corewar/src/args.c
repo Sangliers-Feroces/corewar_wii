@@ -42,11 +42,12 @@ static void parse_first_arg(vm_t *vm, vec_str_t args, size_t *i)
 {
     char *got;
 
-    if (!vec_str_at(args, (*i)++, &got))
+    if (!vec_str_at(args, *i, &got))
         error_mul_exit("FATAL ERROR", "wtf");
     if (streq(got, "-h"))
         print_help();
     else if (streq(got, "-dump")) {
+        (*i)++;
         if (!vec_str_at(args, (*i)++, &got))
             error_mul_exit("-dump", "missing arg");
         vm->timeout = size_t_from_str(got);

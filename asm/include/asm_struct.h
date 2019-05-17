@@ -104,6 +104,7 @@ typedef struct {
     size_t code;
     size_t arg_count;
     asm_arg_type_t arg_type[64];
+    size_t cycles;
     int is_index;
     int hide_arg_byte;
 } asm_op_t;

@@ -27,13 +27,16 @@ void vm_destroy(vm_t *vm)
 
 static void set_prog(vm_t *vm, prog_t *prog)
 {
-    memcpy_slow(vm->mem + prog->address, prog->inst, prog->inst_size);
+    for (size_t i = 0; i < prog->inst_size; i++)
+        vm->mem[(prog->pc + i) % VM_SIZE] = prog->inst[i];
+    prog->r[0] = prog->id;
 }
 
 void vm_set_progs(vm_t *vm)
 {
     size_t total_size = 0;
     size_t space;
+    int32_t next_pc = 0;
 
     for (size_t i = 0; i < vm->progs.count; i++)
         total_size += vm->progs.prog[i].inst_size;
@@ -42,8 +45,9 @@ void vm_set_progs(vm_t *vm)
         error_mul_exit("Can't fit those programs",
         "they are too fat for the RAM (increase its size !)");
     for (size_t i = 0; i < vm->progs.count; i++) {
-        if (vm->progs.prog[i].address != ~0ULL)
-            vm->progs.prog[i].address = i * space;
+        if (vm->progs.prog[i].pc == ~0ULL)
+            vm->progs.prog[i].pc = next_pc;
         set_prog(vm, &vm->progs.prog[i]);
+        next_pc += vm->progs.prog[i].inst_size + space;
     }
 }

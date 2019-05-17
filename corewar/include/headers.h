@@ -21,3 +21,5 @@
 #include "str.h"
 #include "misc.h"
 #include "error.h"
+#include "global.h"
+#include "macro.h"

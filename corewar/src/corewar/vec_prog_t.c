@@ -35,7 +35,18 @@ void vec_prog_destroy(vec_prog_t *v)
     free(v->prog);
 }
 
-static void parse_size_t_opt(vec_str_t args, size_t *i, char **got, size_t *dst)
+static void parse_int32_opt(vec_str_t args, size_t *i, char **got,
+int32_t *dst)
+{
+    if (!vec_str_at(args, (*i)++, got))
+        error_mul_exit("champion parsing", "missing arg");
+    *dst = size_t_from_str(*got);
+    if (!vec_str_at(args, (*i)++, got))
+        error_mul_exit("champion parsing", "expected path to champion");
+}
+
+static void parse_size_opt(vec_str_t args, size_t *i, char **got,
+size_t *dst)
 {
     if (!vec_str_at(args, (*i)++, got))
         error_mul_exit("champion parsing", "missing arg");
@@ -57,9 +68,9 @@ vec_prog_t vec_prog_from_args(vec_str_t args, size_t *i)
         prog = prog_init();
         prog.id = last_id + 1;
         if (streq(got, "-n"))
-            parse_size_t_opt(args, i, &got, &prog.id);
+            parse_int32_opt(args, i, &got, &prog.id);
         if (streq(got, "-a"))
-            parse_size_t_opt(args, i, &got, &prog.address);
+            parse_size_opt(args, i, &got, &prog.pc);
         prog_read(&prog, got);
         vec_prog_add(&res, prog);
         last_id = prog.id;

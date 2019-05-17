@@ -29,6 +29,14 @@ typedef struct {
     const char *data;
 } str_t;
 
+typedef struct {
+    size_t start;
+    size_t i;
+    size_t is_quote;
+    int is_sep;
+    int is_last_sep;
+} str_sep_data_t;
+
 typedef enum {
     ASM_DECL_ARG_REGISTER,
     ASM_DECL_ARG_IMMEDIATE,
@@ -64,6 +72,7 @@ typedef struct {
     size_t code;
     size_t arg_count;
     asm_arg_type_t arg_type[64];
+    size_t cycles;
     int is_index;
     int hide_arg_byte;
 } asm_op_t;

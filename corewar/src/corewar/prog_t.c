@@ -7,15 +7,34 @@
 
 #include "headers.h"
 
+static prog_op_t prog_op_init(void)
+{
+    prog_op_t res;
+
+    res.code = ~0ULL;
+    res.cycles = 0;
+    res.arg_count = 0;
+    for (size_t i = 0; i < 4; i++)
+        res.arg[i] = vm_mem_ref_get_null();
+    return res;
+}
+
 prog_t prog_init(void)
 {
-    prog_t prog;
+    prog_t res;
 
-    prog.address = 0;
-    prog.id = 0;
-    prog.inst_size = 0;
-    prog.inst = NULL;
-    return prog;
+    res.id = 0;
+    res.inst_size = 0;
+    res.inst = NULL;
+    res.carry = 0;
+    res.pc = ~0ULL;
+    for (size_t i = 0; i < 16; i++)
+        res.r[i] = 0;
+    res.op = prog_op_init();
+    res.cycle = 0;
+    res.life = 0;
+    res.is_alive = 1;
+    return res;
 }
 
 void prog_destroy(prog_t prog)
