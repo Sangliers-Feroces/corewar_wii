@@ -87,6 +87,7 @@ prog_op_t vm_read_prog_op(prog_t *prog)
     res.code = vm_read_uint8(prog->pc++);
     if (!get_op(res.code, &op))
         return res;
+    res.cycles = op.cycles;
     if (!op.hide_arg_byte)
         arg_desc = vm_read_uint8(prog->pc++);
     else
