@@ -27,7 +27,7 @@ void lldi(prog_t *prog)
 }
 
 void lfork(prog_t *prog)
-{   
+{
     int32_t offset = vm_mem_ref_read_nomod(prog->op.arg[0]);
 
     vm_fork_nomod(offset);

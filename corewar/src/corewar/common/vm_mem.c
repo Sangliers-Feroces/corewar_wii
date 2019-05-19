@@ -22,7 +22,8 @@ int32_t vm_mem_ref_read(vm_mem_ref_t ref)
             return (int16_t)vm_read_uint16(
             _vm.prog_running->op.pc + ref.ptr % PTR_RANGE);
         else
-            return vm_read_uint32(_vm.prog_running->op.pc + ref.ptr % PTR_RANGE);
+            return vm_read_uint32(
+            _vm.prog_running->op.pc + ref.ptr % PTR_RANGE);
     default:
         return 0;
     }

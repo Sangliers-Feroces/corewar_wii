@@ -40,7 +40,7 @@ void aff(prog_t *prog)
 }
 
 void fork_(prog_t *prog)
-{   
+{
     int32_t offset = vm_mem_ref_read(prog->op.arg[0]);
 
     vm_fork(offset);
