@@ -102,6 +102,25 @@ static void sti(prog_t *prog)
     vm_mem_ref_write(prog->op.arg[2], res);
 }
 
+static void lld(prog_t *prog)
+{
+    int32_t arg0_val = vm_mem_ref_read_nomod(prog->op.arg[0]);
+
+    prog->carry = (arg0_val == 0);
+    vm_mem_ref_write_nomod(prog->op.arg[1], arg0_val);
+}
+
+static void lldi(prog_t *prog)
+{
+    int32_t s =
+    vm_mem_ref_read_nomod(prog->op.arg[0]) +
+    vm_mem_ref_read_nomod(prog->op.arg[1]);
+    int32_t res = vm_mem_ref_read_nomod(vm_mem_ref_init_rel(s));
+
+    prog->carry = (res == 0);
+    vm_mem_ref_write_nomod(prog->op.arg[2], res);
+}
+
 static void aff(prog_t *prog)
 {
     int32_t char_ = vm_mem_ref_read(prog->op.arg[0]) % 256;
@@ -134,6 +153,10 @@ void prog_exec_op(prog_t *prog)
         return ldi(prog);
     case 11:
         return sti(prog);
+    case 13:
+        return lld(prog);
+    case 14:
+        return lldi(prog);
     case 16:
         return aff(prog);
     }
