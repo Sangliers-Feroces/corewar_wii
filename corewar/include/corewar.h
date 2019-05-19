@@ -48,3 +48,6 @@ int32_t vm_mem_ref_read_nomod(vm_mem_ref_t ref);
 void vm_mem_ref_write_nomod(vm_mem_ref_t ref, int32_t value);
 
 void prog_exec_op(prog_t *prog);
+
+void vm_fork(int32_t offset);
+void vm_fork_nomod(int32_t offset);
