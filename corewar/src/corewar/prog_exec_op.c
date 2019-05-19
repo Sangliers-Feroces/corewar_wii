@@ -40,7 +40,7 @@ static void add(prog_t *prog)
     vm_mem_ref_write(prog->op.arg[2], (arg0_val + arg1_val));
 }
 
-static void subb(prog_t *prog)
+static void sub(prog_t *prog)
 {
     int32_t arg0_val = vm_mem_ref_read(prog->op.arg[0]);
     int32_t arg1_val = vm_mem_ref_read(prog->op.arg[1]);
@@ -65,15 +65,6 @@ static void or(prog_t *prog)
 
     prog->carry = (arg0_val | arg1_val) == 0;
     vm_mem_ref_write(prog->op.arg[2], (arg0_val | arg1_val));
-}
-
-static void and(prog_t *prog)
-{
-    int32_t arg0_val = vm_mem_ref_read(prog->op.arg[0]);
-    int32_t arg1_val = vm_mem_ref_read(prog->op.arg[1]);
-
-    prog->carry = (arg0_val ^ arg1_val) == 0;
-    vm_mem_ref_write(prog->op.arg[2], (arg0_val ^ arg1_val));
 }
 
 void prog_exec_op(prog_t *prog)
