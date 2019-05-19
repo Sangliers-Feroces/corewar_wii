@@ -11,26 +11,25 @@ void zjmp(prog_t *prog)
 {
     int32_t index = (vm_mem_ref_read(prog->op.arg[0]) % PTR_RANGE);
 
-    prog->op.pc = index;
+    prog->pc = prog->op.pc + index;
 }
 
 void ldi(prog_t *prog)
 {
     int32_t s =
-    vm_mem_ref_read(prog->op.arg[0]) + vm_mem_ref_read(prog->op.arg[1]);
-    int32_t res = vm_mem_ref_read(vm_mem_ref_init_rel(s));
+    vm_mem_ref_read(prog->op.arg[1]) + vm_mem_ref_read(prog->op.arg[2]);
+    int32_t res = vm_mem_ref_read(prog->op.arg[0]);
 
     prog->carry = (res == 0);
-    vm_mem_ref_write(prog->op.arg[2], res);
+    vm_mem_ref_write(vm_mem_ref_init_rel(s), res);
 }
 
 void sti(prog_t *prog)
 {
     int32_t s =
-    vm_mem_ref_read(prog->op.arg[0]) + vm_mem_ref_read(prog->op.arg[1]);
-    int32_t res = vm_mem_ref_read(vm_mem_ref_init_rel(s));
+    vm_mem_ref_read(prog->op.arg[1]) + vm_mem_ref_read(prog->op.arg[2]);
 
-    vm_mem_ref_write(prog->op.arg[2], res);
+    vm_mem_ref_write(vm_mem_ref_init_rel(s), vm_mem_ref_read(prog->op.arg[0]));
 }
 
 void aff(prog_t *prog)

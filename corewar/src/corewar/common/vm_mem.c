@@ -14,12 +14,13 @@ int32_t vm_mem_ref_read(vm_mem_ref_t ref)
         return *((int32_t*)ref.ptr);
     case VM_MEM_REF_VM_ABS:
         if (ref.is_short)
-            return vm_read_uint16(ref.ptr);
+            return (int16_t)vm_read_uint16(ref.ptr);
         else
             return vm_read_uint32(ref.ptr);
     case VM_MEM_REF_VM_REL:
         if (ref.is_short)
-            return vm_read_uint16(_vm.prog_running->op.pc + ref.ptr % PTR_RANGE);
+            return (int16_t)vm_read_uint16(
+            _vm.prog_running->op.pc + ref.ptr % PTR_RANGE);
         else
             return vm_read_uint32(_vm.prog_running->op.pc + ref.ptr % PTR_RANGE);
     default:
@@ -55,12 +56,12 @@ int32_t vm_mem_ref_read_nomod(vm_mem_ref_t ref)
         return *((int32_t*)ref.ptr);
     case VM_MEM_REF_VM_ABS:
         if (ref.is_short)
-            return vm_read_uint16(ref.ptr);
+            return (int16_t)vm_read_uint16(ref.ptr);
         else
             return vm_read_uint32(ref.ptr);
     case VM_MEM_REF_VM_REL:
         if (ref.is_short)
-            return vm_read_uint16(_vm.prog_running->op.pc + ref.ptr);
+            return (int16_t)vm_read_uint16(_vm.prog_running->op.pc + ref.ptr);
         else
             return vm_read_uint32(_vm.prog_running->op.pc + ref.ptr);
     default:

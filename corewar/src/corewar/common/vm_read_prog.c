@@ -46,7 +46,8 @@ static vm_mem_ref_t get_mem_ref(prog_t *prog, size_t arg_type, int is_index)
     switch (arg_type) {
     case 1:
         res.type = VM_MEM_REF_MAIN;
-        res.ptr = (size_t)&prog->r[CLAMP(vm_read_uint8(prog->pc++) - 1, 0, 15)];
+        res.ptr = (size_t)&prog->r[CLAMP(vm_read_uint8(prog->pc) - 1, 0, 15)];
+        prog->pc++;
         break;
     case 2:
         res.type = VM_MEM_REF_VM_ABS;
