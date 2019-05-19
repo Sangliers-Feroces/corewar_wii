@@ -14,6 +14,7 @@ vm_t vm_init(void)
     vm.mem = (char*)malloc_safe(VM_SIZE);
     vm.progs = vec_prog_init();
     vm.prog_running = NULL;
+    vm.prog_live = NULL;
     vm.timeout = VM_NULL_HANDLE;
     for (size_t i = 0; i < VM_SIZE; i++)
         vm.mem[i] = 0;

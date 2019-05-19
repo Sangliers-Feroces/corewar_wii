@@ -14,6 +14,7 @@ static prog_t* prog_dup(prog_t *src)
     *res = *src;
     res->inst = malloc_safe(res->inst_size);
     memcpy_slow(res->inst, src->inst, res->inst_size);
+    res->name = strdup_slow(src->name);
     return res;
 }
 

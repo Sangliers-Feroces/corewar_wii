@@ -10,6 +10,7 @@
 #define VM_SIZE (1024 * 6)
 #define PTR_RANGE 512
 #define VM_NULL_HANDLE ~0ULL
+#define IS_PC 1
 
 typedef enum {
     VM_MEM_REF_MAIN,
@@ -35,6 +36,7 @@ typedef struct {
     int32_t id;
     size_t inst_size;
     char *inst;
+    char *name;
     int carry;
     size_t pc;
     int32_t r[16];
@@ -54,5 +56,6 @@ typedef struct {
     char *mem;
     vec_prog_t progs;
     prog_t *prog_running;
+    prog_t *prog_live;
     size_t timeout;
 } vm_t;

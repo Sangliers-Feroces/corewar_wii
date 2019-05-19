@@ -22,12 +22,12 @@ void prog_run(prog_t *prog)
         prog_next_op(prog);
     prog->cycle++;
     prog->life++;
-    if (prog->life >= 1536) {
-        prog->is_alive = 0;
-        return;
-    }
     if (prog->cycle == prog->op.cycles) {
         prog_exec_op(prog);
         prog_next_op(prog);
+    }
+    if (prog->life >= 1536) {
+        prog->is_alive = 0;
+        return;
     }
 }

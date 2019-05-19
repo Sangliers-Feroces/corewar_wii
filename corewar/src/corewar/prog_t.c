@@ -26,6 +26,7 @@ prog_t* prog_init(void)
     res->id = 0;
     res->inst_size = 0;
     res->inst = NULL;
+    res->name = NULL;
     res->carry = 0;
     res->pc = VM_NULL_HANDLE;
     for (size_t i = 0; i < 16; i++)
@@ -40,6 +41,7 @@ prog_t* prog_init(void)
 void prog_destroy(prog_t *prog)
 {
     free(prog->inst);
+    free(prog->name);
     free(prog);
 }
 
@@ -47,6 +49,7 @@ void prog_read(prog_t *prog, char *path)
 {
     FILE *file = fopen(path, "r");
     int32_t size_raw;
+    size_t n = 0;
 
     if (file == NULL)
         error_mul_exit(path, "File does not exist");
@@ -58,5 +61,7 @@ void prog_read(prog_t *prog, char *path)
     fseek(file, sizeof(asm_header_t), SEEK_SET);
     if (fread(prog->inst, 1, prog->inst_size, file) != prog->inst_size)
         error_mul_exit(path, "Can't read data");
+    fseek(file, offsetof(asm_header_t, name), SEEK_SET);
+    getline(&prog->name, &n, file);
     fclose(file);
 }

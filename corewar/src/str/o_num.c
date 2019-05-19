@@ -20,7 +20,7 @@ static size_t get_max_pow(size_t value, size_t base, size_t *p_exp)
     return (res);
 }
 
-void strout_num_adv(FILE *file, size_t value, size_t base, int is_caps)
+void strout_num_adv(int fd, size_t value, size_t base, int is_caps)
 {
     size_t exp;
     size_t pow = get_max_pow(value, base, &exp);
@@ -36,16 +36,16 @@ void strout_num_adv(FILE *file, size_t value, size_t base, int is_caps)
             buf[i++] = tmp - 10 + 'a' - is_caps * 32;
         pow /= base;
     }
-    fwrite(buf, 1, i, file);
+    write(fd, buf, i);
 }
 
 void strout_num(size_t value)
 {
-    strout_num_adv(stdout, value, 10, 0);
+    strout_num_adv(1, value, 10, 0);
 }
 
 void strerr_num(size_t value)
 {
-    strout_num_adv(stderr, value, 10, 0);
+    strout_num_adv(2, value, 10, 0);
 }
 
