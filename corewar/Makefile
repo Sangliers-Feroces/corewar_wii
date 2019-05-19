@@ -5,7 +5,8 @@ LDLIB =
 %.o: %.c
 	gcc $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-SRC = $(wildcard ./src/*.c) $(wildcard ./src/*/*.c) $(wildcard ./src/*/*/*.c)
+SRC = $(wildcard ./src/*.c) $(wildcard ./src/*/*.c) $(wildcard ./src/*/*/*.c) \
+$(wildcard ./src/*/*/*/*.c) $(wildcard ./src/*/*/*/*/*.c)
 OBJ = $(SRC:.c=.o)
 
 OUTPUT = corewar

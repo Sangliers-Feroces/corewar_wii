@@ -52,7 +52,7 @@ void prog_read(prog_t *prog, char *path)
     fseek(file, offsetof(asm_header_t, size), SEEK_SET);
     if (fread(&size_raw, sizeof(int32_t), 1, file) != 1)
         error_mul_exit(path, "Can't read data size");
-    prog->inst_size = swap32(size_raw);
+    prog->inst_size = size_raw;
     prog->inst = malloc_safe(sizeof(char) * prog->inst_size);
     fseek(file, sizeof(asm_header_t), SEEK_SET);
     if (fread(prog->inst, 1, prog->inst_size, file) != prog->inst_size)
