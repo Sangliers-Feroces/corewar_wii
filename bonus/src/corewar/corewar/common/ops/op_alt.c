@@ -11,7 +11,8 @@ void zjmp(prog_t *prog)
 {
     int32_t index = (vm_mem_ref_read(prog->op.arg[0]) % PTR_RANGE);
 
-    prog->pc = prog->op.pc + index;
+    if (prog->carry)
+        prog->pc = prog->op.pc + index;
 }
 
 void ldi(prog_t *prog)
