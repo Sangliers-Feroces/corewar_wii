@@ -197,7 +197,7 @@ static void refresh_hl(void)
         _vm.hl[i] = 0;
     for (size_t i = 0; i < _vm.progs.count; i++)
         if (_vm.progs.prog[i].is_alive)
-            _vm.hl[_vm.progs.prog[i].pc % VM_SIZE] = 1;
+            _vm.hl[_vm.progs.prog[i].op.pc % VM_SIZE] = 1;
 }
 
 static void render_vm(void)
@@ -259,7 +259,7 @@ void demo_loop(demo_t *demo)
         Mtx view;
         dmat4_Mtx(_demo->cam.mvp.view, view);
         //world_render();
-        for (size_t i = 0; i < 2; i++)
+        for (size_t i = 0; i < 5; i++)
             if (vec_prog_get_alive_count(&_vm.progs) > 1)
                 vec_prog_run(&_vm.progs);
         render_vm();
