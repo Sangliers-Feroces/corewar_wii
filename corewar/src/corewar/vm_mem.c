@@ -88,3 +88,10 @@ void vm_mem_ref_write_nomod(vm_mem_ref_t ref, int32_t value)
             _vm.prog_running->op.pc + ref.ptr, value);
     }
 }
+
+vm_mem_ref_t vm_mem_ref_init_rel(int32_t offset)
+{
+    vm_mem_ref_t res = {VM_MEM_REF_VM_REL, offset, 0};
+
+    return res;
+}

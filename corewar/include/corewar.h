@@ -32,6 +32,7 @@ void prog_run(prog_t *prog);
 uint8_t vm_read_uint8(size_t ptr);
 uint16_t vm_read_uint16(size_t ptr);
 uint32_t vm_read_uint32(size_t ptr);
+vm_mem_ref_t vm_mem_ref_init_rel(int32_t offset);
 
 void vm_write_uint8(size_t ptr, uint8_t value);
 void vm_write_uint16(size_t ptr, uint16_t value);
