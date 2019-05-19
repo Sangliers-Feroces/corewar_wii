@@ -1,5 +1,3 @@
-*.cor
-*.s
 asm/asm
 corewar/corewar
 *.d
