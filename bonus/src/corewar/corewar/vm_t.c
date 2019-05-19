@@ -15,8 +15,8 @@ vm_t vm_init(void)
     vm.owner = (int32_t*)malloc_safe(VM_SIZE * sizeof(int32_t));
     vm.hl = (char*)malloc_safe(VM_SIZE);
     vm.progs = vec_prog_init();
+    vm.prog_running = NULL;
     vm.timeout = ~0UL;
-    vm.running_id = 0;
     return vm;
 }
 

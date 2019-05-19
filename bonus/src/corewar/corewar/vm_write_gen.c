@@ -10,6 +10,7 @@
 void vm_write_uint8(size_t ptr, uint8_t value)
 {
     _vm.mem[ptr % VM_SIZE] = value;
+    _vm.owner[ptr % VM_SIZE] = _vm.prog_running->id;
 }
 
 void vm_write_uint16(size_t ptr, uint16_t value)

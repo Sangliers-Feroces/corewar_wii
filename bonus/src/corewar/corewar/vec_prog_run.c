@@ -20,5 +20,5 @@ void vec_prog_run(vec_prog_t *vec)
 {
     for (size_t i = 0; i < vec->count; i++)
         prog_run(&vec->prog[i]);
-    _vm.running_id = 0;
+    _vm.prog_running = NULL;
 }

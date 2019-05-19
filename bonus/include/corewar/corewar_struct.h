@@ -50,7 +50,7 @@ typedef struct {
     char *mem;
     int32_t *owner;
     char *hl;
-    int32_t running_id;
     vec_prog_t progs;
+    prog_t *prog_running;
     size_t timeout;
 } vm_t;
