@@ -17,11 +17,11 @@ void zjmp(prog_t *prog)
 void ldi(prog_t *prog)
 {
     int32_t s =
-    vm_mem_ref_read(prog->op.arg[1]) + vm_mem_ref_read(prog->op.arg[2]);
-    int32_t res = vm_mem_ref_read(prog->op.arg[0]);
+    vm_mem_ref_read(prog->op.arg[0]) + vm_mem_ref_read(prog->op.arg[1]);
+    int32_t res = vm_mem_ref_read(vm_mem_ref_init_rel(s));
 
     prog->carry = (res == 0);
-    vm_mem_ref_write(vm_mem_ref_init_rel(s), res);
+    vm_mem_ref_write(prog->op.arg[2], res);
 }
 
 void sti(prog_t *prog)

@@ -18,12 +18,12 @@ void lld(prog_t *prog)
 void lldi(prog_t *prog)
 {
     int32_t s =
-    vm_mem_ref_read_nomod(prog->op.arg[1]) +
-    vm_mem_ref_read_nomod(prog->op.arg[2]);
-    int32_t res = vm_mem_ref_read_nomod(prog->op.arg[0]);
+    vm_mem_ref_read_nomod(prog->op.arg[0]) +
+    vm_mem_ref_read_nomod(prog->op.arg[1]);
+    int32_t res = vm_mem_ref_read_nomod(vm_mem_ref_init_rel(s));
 
     prog->carry = (res == 0);
-    vm_mem_ref_write_nomod(vm_mem_ref_init_rel(s), res);
+    vm_mem_ref_write_nomod(prog->op.arg[2], res);
 }
 
 void lfork(prog_t *prog)
