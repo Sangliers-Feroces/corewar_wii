@@ -9,9 +9,11 @@
 
 static void try_get_label(asm_t *a, vec_str_t t, size_t *i)
 {
-    if (!vec_str_at(t, *i + 1, NULL))
+    char *got;
+
+    if (!vec_str_at(t, *i + 1, &got))
         return;
-    if (!streq(t.str[*i + 1], ":"))
+    if (!streq(got, ":"))
         return;
     vec_asm_label_add(&a->labels, asm_label_create(t.str[*i], a->out.size));
     (*i) += 2;

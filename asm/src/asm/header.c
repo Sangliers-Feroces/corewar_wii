@@ -26,7 +26,7 @@ int asm_get_header(asm_t *a, vec_str_t t, size_t *i, char *got)
 
     if (streq(got, name) || streq(got, com)) {
         if (vec_str_at(t, *i + 1, NULL))
-            return 0;
+            error_line_exit(_line, "Too much args", got);
         if (!vec_str_at(t, *i, &value))
             error_line_exit(_line, "Missing arg", got);
         if (streq(got, name))
