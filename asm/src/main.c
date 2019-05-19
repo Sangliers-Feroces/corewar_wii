@@ -7,6 +7,14 @@
 
 #include "headers.h"
 
+static const char *msg =
+"USAGE\n"
+"\t./asm file_name[.s]\n\n"
+"DESCRIPTION\n"
+"\tfile_name\tfile in assembly language to be converted into file_name.cor,"
+" an\n"
+"\t\t\texecutable in the Virtual Machine.\n";
+
 static FILE* open_read_file(const char *path)
 {
     FILE *res;
@@ -48,6 +56,10 @@ int main(int argc, char **argv)
     if (argc != 2)
         error_exit("Only one file should be given to this assembler ! "
         "That is not a linker !");
+    if (streq(argv[1], "-h")) {
+        my_putstr(msg);
+        return 0;
+    }
     do_stuff(argv[1]);
     return 0;
 }
