@@ -102,6 +102,13 @@ static void sti(prog_t *prog)
     vm_mem_ref_write(prog->op.arg[2], res);
 }
 
+static void aff(prog_t *prog)
+{
+    int32_t char_ = vm_mem_ref_read(prog->op.arg[0]) % 256;
+
+    my_putchar(char_);
+}
+
 void prog_exec_op(prog_t *prog)
 {
     switch (prog->op.code) {
@@ -127,5 +134,7 @@ void prog_exec_op(prog_t *prog)
         return ldi(prog);
     case 11:
         return sti(prog);
+    case 16:
+        return aff(prog);
     }
 }
