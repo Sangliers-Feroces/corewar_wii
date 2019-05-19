@@ -43,5 +43,7 @@ vm_mem_ref_t vm_mem_ref_get_null(void);
 
 int32_t vm_mem_ref_read(vm_mem_ref_t ref);
 void vm_mem_ref_write(vm_mem_ref_t ref, int32_t value);
+int32_t vm_mem_ref_read_rel(vm_mem_ref_t ref, int32_t offset);
+void vm_mem_ref_write_rel(vm_mem_ref_t ref, int32_t offset, int32_t value);
 
 void prog_exec_op(prog_t *prog);

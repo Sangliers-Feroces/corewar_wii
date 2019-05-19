@@ -39,24 +39,24 @@ vm_mem_ref_t vm_mem_ref_get_null(void)
     return res;
 }
 
-static vm_mem_ref_t get_mem_ref(prog_t *prog, size_t arg_type, int is_index,
-size_t base_ptr)
+static vm_mem_ref_t get_mem_ref(prog_t *prog, size_t arg_type, int is_index)
 {
     vm_mem_ref_t res;
 
-    res.type = VM_MEM_REF_VM;
     switch (arg_type) {
     case 1:
         res.type = VM_MEM_REF_MAIN;
         res.ptr = (size_t)&prog->r[CLAMP(vm_read_uint8(prog->pc++) - 1, 0, 15)];
         break;
     case 2:
+        res.type = VM_MEM_REF_VM_ABS;
         res.ptr = prog->pc;
         res.is_short = is_index;
         prog->pc += is_index ? 2 : 4;
         break;
     case 3:
-        res.ptr = base_ptr + vm_read_uint16(prog->pc);
+        res.type = VM_MEM_REF_VM_REL;
+        res.ptr = vm_read_uint16(prog->pc);
         prog->pc += 2;
     default:
         break;
@@ -76,12 +76,12 @@ static int get_op(uint8_t code, asm_op_t *res)
 
 prog_op_t vm_read_prog_op(prog_t *prog)
 {
-    size_t base_ptr = prog->pc;
     prog_op_t res;
     uint8_t arg_desc;
     size_t arg_type;
     asm_op_t op;
 
+    res.pc = prog->pc;
     res.cycles = 1;
     res.arg_count = 0;
     res.code = vm_read_uint8(prog->pc++);
@@ -97,7 +97,7 @@ prog_op_t vm_read_prog_op(prog_t *prog)
         if (arg_type == 0)
             break;
         res.arg[res.arg_count++] =
-        get_mem_ref(prog, arg_type, op.is_index, base_ptr);
+        get_mem_ref(prog, arg_type, op.is_index);
     }
     if (res.arg_count != op.arg_count) {
         res.code = 0;

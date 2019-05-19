@@ -17,6 +17,7 @@ void prog_run(prog_t *prog)
 {
     if (!prog->is_alive)
         return;
+    _vm.prog_running = prog;
     if (prog->op.code == ~0ULL)
         prog_next_op(prog);
     prog->cycle++;
