@@ -67,10 +67,65 @@ static void or(prog_t *prog)
     vm_mem_ref_write(prog->op.arg[2], (arg0_val | arg1_val));
 }
 
+static void xor(prog_t *prog)
+{
+    int32_t arg0_val = vm_mem_ref_read(prog->op.arg[0]);
+    int32_t arg1_val = vm_mem_ref_read(prog->op.arg[1]);
+
+    prog->carry = (arg0_val ^ arg1_val) == 0;
+    vm_mem_ref_write(prog->op.arg[2], (arg0_val ^ arg1_val));
+}
+
+static void zjmp(prog_t *prog)
+{
+    int32_t index = (vm_mem_ref_read(prog->op.arg[0]) % PTR_RANGE);
+
+    prog->op.pc = index;
+}
+
+static void ldi(prog_t *prog)
+{
+    int32_t s =
+    vm_mem_ref_read(prog->op.arg[0]) + vm_mem_ref_read(prog->op.arg[1]);
+    int32_t res = vm_mem_ref_read(vm_mem_ref_init_rel(s));
+
+    prog->carry = (res == 0);
+    vm_mem_ref_write(prog->op.arg[2], res);
+}
+
+static void sti(prog_t *prog)
+{
+    int32_t s =
+    vm_mem_ref_read(prog->op.arg[0]) + vm_mem_ref_read(prog->op.arg[1]);
+    int32_t res = vm_mem_ref_read(vm_mem_ref_init_rel(s));
+
+    vm_mem_ref_write(prog->op.arg[2], res);
+}
+
 void prog_exec_op(prog_t *prog)
 {
     switch (prog->op.code) {
     case 1:
         return live(prog);
+    case 2:
+        return ld(prog);
+    case 3:
+        return st(prog);
+    case 4:
+        return add(prog);
+    case 5:
+        return sub(prog);
+    case 6:
+        return and(prog);
+    case 7:
+        return or(prog);
+    case 8:
+        return xor(prog);
+    case 9:
+        return zjmp(prog);
+    case 10:
+        return ldi(prog);
+    case 11:
+        return sti(prog);
     }
 }

@@ -54,8 +54,16 @@ int32_t vm_mem_ref_read_rel(vm_mem_ref_t ref, int32_t offset)
     return vm_mem_ref_read(ref);
 }
 
+vm_mem_ref_t vm_mem_ref_init_rel(int32_t offset)
+{
+    vm_mem_ref_t res = {VM_MEM_REF_VM_REL, offset, 0};
+
+    return res;
+}
+
 void vm_mem_ref_write_rel(vm_mem_ref_t ref, int32_t offset, int32_t value)
 {
     ref.ptr = (ssize_t)ref.ptr + offset;
     vm_mem_ref_write(ref, value);
 }
+
