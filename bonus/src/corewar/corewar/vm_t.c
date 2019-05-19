@@ -69,16 +69,16 @@ void vm_set_progs(vm_t *vm)
     int32_t next_pc = 0;
 
     for (size_t i = 0; i < vm->progs.count; i++)
-        total_size += vm->progs.prog[i].inst_size;
+        total_size += vm->progs.prog[i]->inst_size;
     space = (VM_SIZE - total_size) / vm->progs.count;
     if ((ssize_t)space < 0)
         error_mul_exit("Can't fit those programs",
         "they are too fat for the RAM (increase its size !)");
     vm_clean();
     for (size_t i = 0; i < vm->progs.count; i++) {
-        if (vm->progs.prog[i].pc == VM_NULL_HANDLE)
-            vm->progs.prog[i].pc = next_pc;
-        vm_set_prog(&vm->progs.prog[i]);
-        next_pc += vm->progs.prog[i].inst_size + space;
+        if (vm->progs.prog[i]->pc == VM_NULL_HANDLE)
+            vm->progs.prog[i]->pc = next_pc;
+        vm_set_prog(vm->progs.prog[i]);
+        next_pc += vm->progs.prog[i]->inst_size + space;
     }
 }

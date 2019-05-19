@@ -127,15 +127,15 @@ static int try_set_prog(prog_t *prog)
 static void add_champ(const char *name)
 {
     char *path = get_champ_path(name);
-    prog_t to_add = prog_init();
+    prog_t *to_add = prog_init();
 
-    prog_read(&to_add, path);
+    prog_read(to_add, path);
     free(path);
     if (_vm.progs.count == 0)
-        to_add.id = 1;
+        to_add->id = 1;
     else
-        to_add.id = _vm.progs.prog[_vm.progs.count - 1].id + 1;
-    if (!try_set_prog(&to_add))
+        to_add->id = _vm.progs.prog[_vm.progs.count - 1]->id + 1;
+    if (!try_set_prog(to_add))
         return prog_destroy(to_add);
     vec_prog_add(&_vm.progs, to_add);
 }
@@ -196,8 +196,8 @@ static void refresh_hl(void)
     for (size_t i = 0; i < VM_SIZE; i++)
         _vm.hl[i] = 0;
     for (size_t i = 0; i < _vm.progs.count; i++)
-        if (_vm.progs.prog[i].is_alive)
-            _vm.hl[_vm.progs.prog[i].op.pc % VM_SIZE] = 1;
+        if (_vm.progs.prog[i]->is_alive)
+            _vm.hl[_vm.progs.prog[i]->op.pc % VM_SIZE] = 1;
 }
 
 static void render_vm(void)

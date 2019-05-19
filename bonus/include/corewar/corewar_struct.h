@@ -47,7 +47,7 @@ typedef struct {
 typedef struct {
     size_t count;
     size_t allocated;
-    prog_t *prog;
+    prog_t **prog;
 } vec_prog_t;
 
 typedef struct {
