@@ -14,7 +14,7 @@ vm_t vm_init(void)
     vm.mem = (char*)malloc_safe(VM_SIZE);
     vm.progs = vec_prog_init();
     vm.prog_running = NULL;
-    vm.timeout = ~0ULL;
+    vm.timeout = VM_NULL_HANDLE;
     for (size_t i = 0; i < VM_SIZE; i++)
         vm.mem[i] = 0;
     return vm;
@@ -46,7 +46,7 @@ void vm_set_progs(vm_t *vm)
         error_mul_exit("Can't fit those programs",
         "they are too fat for the RAM (increase its size !)");
     for (size_t i = 0; i < vm->progs.count; i++) {
-        if (vm->progs.prog[i].pc == ~0ULL)
+        if (vm->progs.prog[i].pc == VM_NULL_HANDLE)
             vm->progs.prog[i].pc = next_pc;
         set_prog(vm, &vm->progs.prog[i]);
         next_pc += vm->progs.prog[i].inst_size + space;

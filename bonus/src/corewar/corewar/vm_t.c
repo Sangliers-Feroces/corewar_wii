@@ -16,7 +16,7 @@ vm_t vm_init(void)
     vm.hl = (char*)malloc_safe(VM_SIZE);
     vm.progs = vec_prog_init();
     vm.prog_running = NULL;
-    vm.timeout = ~0UL;
+    vm.timeout = VM_NULL_HANDLE;
     return vm;
 }
 
@@ -76,7 +76,7 @@ void vm_set_progs(vm_t *vm)
         "they are too fat for the RAM (increase its size !)");
     vm_clean();
     for (size_t i = 0; i < vm->progs.count; i++) {
-        if (vm->progs.prog[i].pc == ~0UL)
+        if (vm->progs.prog[i].pc == VM_NULL_HANDLE)
             vm->progs.prog[i].pc = next_pc;
         vm_set_prog(&vm->progs.prog[i]);
         next_pc += vm->progs.prog[i].inst_size + space;

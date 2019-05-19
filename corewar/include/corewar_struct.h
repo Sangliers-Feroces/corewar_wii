@@ -9,6 +9,7 @@
 
 #define VM_SIZE (1024 * 6)
 #define PTR_RANGE 512
+#define VM_NULL_HANDLE ~0ULL
 
 typedef enum {
     VM_MEM_REF_MAIN,

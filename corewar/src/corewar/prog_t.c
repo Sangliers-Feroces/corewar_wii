@@ -11,7 +11,7 @@ static prog_op_t prog_op_init(void)
 {
     prog_op_t res;
 
-    res.code = ~0ULL;
+    res.code = VM_NULL_HANDLE;
     res.cycles = 0;
     res.arg_count = 0;
     for (size_t i = 0; i < 4; i++)
@@ -27,7 +27,7 @@ prog_t prog_init(void)
     res.inst_size = 0;
     res.inst = NULL;
     res.carry = 0;
-    res.pc = ~0ULL;
+    res.pc = VM_NULL_HANDLE;
     for (size_t i = 0; i < 16; i++)
         res.r[i] = 0;
     res.op = prog_op_init();
