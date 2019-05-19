@@ -61,7 +61,7 @@ export DEPSDIR	:=	$(CURDIR)/$(BUILD)
 #---------------------------------------------------------------------------------
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
-CFILES_A	:=	$(wildcard $(SOURCES)/*.c) $(wildcard $(SOURCES)/*/*.c) $(wildcard $(SOURCES)/*/*/*.c)
+CFILES_A	:=	$(wildcard $(SOURCES)/*.c) $(wildcard $(SOURCES)/*/*.c) $(wildcard $(SOURCES)/*/*/*.c) $(wildcard $(SOURCES)/*/*/*/*.c) $(wildcard $(SOURCES)/*/*/*/*/*.c)
 CFILES		:=	$(addprefix ../, $(CFILES_A))
 CPPFILES_A	:=	$(wildcard $(SOURCES)/*.cpp) $(wildcard $(SOURCES)/*/*.cpp) $(wildcard $(SOURCES)/*/*/*.cpp)
 CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))

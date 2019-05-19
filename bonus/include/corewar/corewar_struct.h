@@ -8,10 +8,12 @@
 #pragma once
 
 #define VM_SIZE (1024 * 6)
+#define PTR_RANGE 512
 
 typedef enum {
     VM_MEM_REF_MAIN,
-    VM_MEM_REF_VM
+    VM_MEM_REF_VM_ABS,
+    VM_MEM_REF_VM_REL
 } vm_mem_ref_type_t;
 
 typedef struct {
@@ -21,6 +23,7 @@ typedef struct {
 } vm_mem_ref_t;
 
 typedef struct {
+    size_t pc;
     size_t code;
     size_t cycles;
     size_t arg_count;
