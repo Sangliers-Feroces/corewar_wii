@@ -17,13 +17,13 @@ vec_prog_t vec_prog_init(void)
     return res;
 }
 
-void vec_prog_add(vec_prog_t *v, prog_t prog)
+void vec_prog_add(vec_prog_t *v, prog_t *prog)
 {
     size_t cur = v->count++;
 
     if (v->count > v->allocated) {
         v->allocated += 8;
-        v->prog = (prog_t*)realloc(v->prog, v->allocated * sizeof(prog_t));
+        v->prog = (prog_t**)realloc(v->prog, v->allocated * sizeof(prog_t*));
     }
     v->prog[cur] = prog;
 }
@@ -58,7 +58,7 @@ size_t *dst)
 vec_prog_t vec_prog_from_args(vec_str_t args, size_t *i)
 {
     vec_prog_t res = vec_prog_init();
-    prog_t prog;
+    prog_t *prog;
     int32_t last_id = 0;
     char *got;
 
@@ -66,14 +66,14 @@ vec_prog_t vec_prog_from_args(vec_str_t args, size_t *i)
         if (!vec_str_at(args, (*i)++, &got))
             return res;
         prog = prog_init();
-        prog.id = last_id + 1;
+        prog->id = last_id + 1;
         if (streq(got, "-n"))
-            parse_int32_opt(args, i, &got, &prog.id);
+            parse_int32_opt(args, i, &got, &prog->id);
         if (streq(got, "-a"))
-            parse_size_opt(args, i, &got, &prog.pc);
-        prog_read(&prog, got);
+            parse_size_opt(args, i, &got, &prog->pc);
+        prog_read(prog, got);
         vec_prog_add(&res, prog);
-        last_id = prog.id;
+        last_id = prog->id;
     }
     return res;
 }

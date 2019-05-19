@@ -43,6 +43,7 @@ static vm_mem_ref_t get_mem_ref(prog_t *prog, size_t arg_type, int is_index)
 {
     vm_mem_ref_t res;
 
+    res.is_short = 0;
     switch (arg_type) {
     case 1:
         res.type = VM_MEM_REF_MAIN;
