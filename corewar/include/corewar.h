@@ -51,3 +51,22 @@ void prog_exec_op(prog_t *prog);
 
 void vm_fork(int32_t offset);
 void vm_fork_nomod(int32_t offset);
+
+
+//ops list
+void live(prog_t *prog);
+void ld(prog_t *prog);
+void st(prog_t *prog);
+void add(prog_t *prog);
+void sub(prog_t *prog);
+void and(prog_t *prog);
+void or(prog_t *prog);
+void xor(prog_t *prog);
+void zjmp(prog_t *prog);
+void ldi(prog_t *prog);
+void sti(prog_t *prog);
+void fork_(prog_t *prog);
+void lld(prog_t *prog);
+void lldi(prog_t *prog);
+void lfork(prog_t *prog);
+void aff(prog_t *prog);
