@@ -4,7 +4,7 @@ This a little graphical bonus for our corewar, running on both GameCube and Wii.
 
 
 
-# BUILD INSTRUTIONS:
+# Build instructions:
 
 It comes precompiled (.elf on the root).
 
@@ -13,7 +13,7 @@ the PowerPC devkitPro, aka devkitPPC (free toolchain).
 
 
 
-# HOW TO RUN:
+# How to run:
 
 ## On a Wii:
 You'll need a Wii with the Homebrew Channel to run it on actual hardware.
@@ -41,20 +41,20 @@ https://www.reddit.com/r/Gamecube/comments/40u3d6/sd_media_launchersd_gecko_and_
 Once you're done, copy the .dol of this repo in your NGC SD card.
 
 
-# HOW YO PLAY:
+# How to play:
 
 You'll need a GameCube controller on the Wii, as for the GameCube (obviously).
 If you wish yo play it on a Wii and you don't have one, well it's time to
 buy one and discover the awesome NGC library ^^
 It can be configured virtually under Dolphin out of any existing controller.
 
-## ON THE CORE SECTION:
+## On the core section:
 * Main stick: Move the camera
 * C stick: Look around
 * X: Enter the champions menu
 * Start: Quit the game
 
-## CHAMPIONS MENU
+## Champions menu
 * D-pad: Select a champion
 * A: Instanciate it
 * B: Clean the core
